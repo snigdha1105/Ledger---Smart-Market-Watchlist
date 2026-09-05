@@ -52,8 +52,8 @@ export function startPriceEngine() {
         volume = volume + @volume, updated_at = @updated_at, is_stale = 0, stale_since = NULL
     WHERE symbol_id = @symbol_id
   `);
-  const markStale = db.prepare(`
-    UPDATE price_state SET is_stale = 1, stale_since = COALESCE(stale_since, @ts) WHERE symbol_id = ?
+ const markStale = db.prepare(`
+    UPDATE price_state SET is_stale = 1, stale_since = COALESCE(stale_since, @ts) WHERE symbol_id = @symbol_id
   `);
   const insertTick = db.prepare(
     `INSERT INTO price_ticks (symbol_id, price, volume, ts) VALUES (?, ?, ?, ?)`
